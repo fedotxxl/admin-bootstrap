@@ -1,0 +1,25 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="20170814.xml" author="fbelov">
+        <createTable tableName="juser">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="juser_pkey"/>
+            </column>
+            <column name="mail" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(1024)"/>
+            <column name="first_name" type="VARCHAR(256)"/>
+            <column name="last_name" type="VARCHAR(256)"/>
+            <column defaultValueBoolean="false" name="is_disabled" type="BOOLEAN"/>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="last_login_at" type="TIMESTAMP WITH TIME ZONE"/>
+            <column defaultValueBoolean="false" name="is_role_admin" type="BOOLEAN"/>
+            <column defaultValueBoolean="false" name="is_activated" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

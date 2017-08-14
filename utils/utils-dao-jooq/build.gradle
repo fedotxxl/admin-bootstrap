@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        jcenter()
+
+        maven {
+            url "${rootProject.projectDir}/other/m2/"
+        }
+    }
+
+    dependencies {
+        classpath cl.db.jdbc.postgresql
+        classpath cl.db.jooq.codegen
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(":utils:utils-dao-jooq-converters")
+
+    compile cl.db.jooq.core
+}
+
+task postgres << {
+    def writer = new StringWriter()
+    def xml = new groovy.xml.MarkupBuilder(writer)
+            .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.9.0.xsd') {
+        jdbc() {
+            driver('org.postgresql.Driver')
+            url('jdbc:postgresql://localhost:54392/onefactor_dsp')
+            user('onefactor_dsp')
+            password('abc')
+            schema('public')
+        }
+        generator() {
+            name("org.jooq.util.DefaultGenerator")
+            database() {
+                name('org.jooq.util.postgres.PostgresDatabase')
+                inputSchema('public')
+            }
+
+            target() {
+                packageName('com.onefactor.dsp.dao.jooq')
+                directory('./src/main/java/')
+            }
+
+            generate([:]) {
+                pojos true
+                relations true
+                deprecated false
+                records true
+                immutablePojos true
+                fluentSetters true
+                javaTimeTypes true
+            }
+        }
+    }
+
+    org.jooq.util.GenerationTool.generate(
+            javax.xml.bind.JAXB.unmarshal(new StringReader(writer.toString()), org.jooq.util.jaxb.Configuration.class)
+    )
+}

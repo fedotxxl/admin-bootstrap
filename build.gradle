@@ -1,0 +1,20 @@
+allprojects {
+    ext {
+        slf4jVersion = "1.7.21"
+    }
+}
+
+apply from: "${rootProject.projectDir}/other/gradle/base.gradle"
+
+allprojects {
+    apply plugin: "maven"
+
+    repositories {
+        mavenCentral()
+        jcenter()
+
+        maven {
+            url "file://${rootProject.projectDir}/other/m2/"
+        }
+    }
+}

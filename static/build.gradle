@@ -1,0 +1,42 @@
+apply plugin: "rpm"
+
+group = "ru.gramant"
+version = hasProperty("rpmVersion") ? getProperty("rpmVersion") : "0.1"
+
+project.ext {
+    applicationName = "billboard-static"
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.netflix.nebula:gradle-ospackage-plugin:2.2.6"
+    }
+}
+
+task npmInstall(type: Exec) {
+    workingDir "./"
+    commandLine "npm", "install"
+}
+
+task buildProd(type: Exec, dependsOn: ":npmInstall") {
+    workingDir "./"
+    commandLine "gulp", "build.dev"
+}
+
+task rpm(type: Rpm, dependsOn: ":buildProd") {
+    packageName = project.ext.applicationName
+    version = project.version
+    arch = NOARCH
+    os = LINUX
+
+    into "/"
+
+    from("./build/static/") {
+        into "/opt/billboard/static"
+    }
+}

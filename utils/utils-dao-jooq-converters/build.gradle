@@ -1,0 +1,5 @@
+dependencies {
+    compile cl.log.api
+    compile cl.db.jooq.core
+    compile project(":utils:domain")
+}

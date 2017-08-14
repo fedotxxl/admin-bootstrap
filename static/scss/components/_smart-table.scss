@@ -1,0 +1,53 @@
+.c-smart-table {
+  th {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &[st-sort] {
+      cursor: pointer;
+    }
+
+    &:hover {
+      .fa-filter {
+        opacity: 1;
+      }
+    }
+
+    .fa-sort {
+      display: none;
+      padding-right: 5px;
+    }
+
+    .fa-filter {
+      transition: opacity 0.3s ease-in-out;
+
+      opacity: 0;
+      color: $color-blue;
+      padding: 5px;
+    }
+  }
+
+  .st-sort-ascent {
+    .fa-sort {
+      display: inline-block;
+      position: relative;
+      top: 3px;
+
+      &:before {
+        content: "\f0de";
+      }
+    }
+  }
+  .st-sort-descent {
+    .fa-sort {
+      display: inline-block;
+      position: relative;
+      top: -3px;
+
+      &:before {
+        content: "\f0dd";
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<included>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned by default the type
+       ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] [%X] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="console"/>
+    </root>
+
+    <logger name="org.apache.http" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="org.jooq" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="con.onefactor" level="TRACE" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+</included>

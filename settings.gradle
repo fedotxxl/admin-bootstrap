@@ -1,0 +1,2 @@
+include ":app",
+        ":utils:domain", ":utils:utils-dao-jooq", ":utils:utils-dao-jooq-converters"

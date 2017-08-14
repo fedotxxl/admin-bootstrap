@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+dependencies {
+    compile cl.json.jackson.annotations
+    compile cl.log.api
+    compile cl.utils.commons.codec
+    compile cl.utils.soyuz.jooq.domain
+    compile cl.utils.soyuz.err
+    compile cl.utils.thedocs.isTo
+    compile cl.utils.thedocs.loge
+    compileOnly cl.utils.lombok
+}

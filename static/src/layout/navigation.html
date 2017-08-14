@@ -1,0 +1,21 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+
+            <li class="nav-header">
+                <c-nav-profile></c-nav-profile>
+            </li>
+
+            <li>
+                <a><i class="fa fa-gear"></i> <span class="nav-label" c-translate="nav.settings.label"></span><span class="fa arrow"></span></a>
+
+                <ul class="nav nav-second-level collapse">
+                    <li c-on-authority="PERM_USER_READ">
+                        <a v-href="{route: 'app.settings.users.list'}"><i class="fa fa-user"></i> <span c-translate="nav.settings.users"></span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>

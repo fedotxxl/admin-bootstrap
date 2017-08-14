@@ -1,0 +1,15 @@
+.nav-tabs {
+  li > a {
+    color: #555555;
+  }
+  li.active > a {
+    background-color: #23c6c8 !important;
+    color: white !important;
+  }
+  li.disabled > a {
+    color: #BBBBBB;
+  }
+  li.disabled > a:hover {
+    color: #BBBBBB;
+  }
+}

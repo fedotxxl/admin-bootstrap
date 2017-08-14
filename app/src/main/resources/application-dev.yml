@@ -1,0 +1,7 @@
+tempFileProvider:
+  rootDirName: dsp
+  lifetimeInSeconds: 30
+
+bootstrap:
+  adminMail: a@a.ru
+  adminPassword: 123

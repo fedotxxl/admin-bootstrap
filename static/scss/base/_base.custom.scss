@@ -1,0 +1,96 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+[disabled] {
+  pointer-events: none;
+}
+
+.d-flex {
+  display: flex;
+}
+
+._display--block {
+  display: block !important;
+}
+
+._display--inline-block {
+  display: inline-block !important;
+}
+
+._display--none {
+  display: none !important;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+._line-height--100 {
+  line-height: 100%;
+}
+
+._line-height--button {
+  line-height: 34px;
+}
+
+._white-space--nowrap {
+  white-space: nowrap;
+}
+
+._table-layout--fixed {
+  table-layout: fixed;
+}
+
+._padding-left--0 {
+  padding-left: 0;
+}
+
+._padding-top--0 {
+  padding-top: 0;
+}
+
+._padding-bottom--0 {
+  padding-bottom: 0;
+}
+
+._margin-top--50 {
+  margin-top: 50px;
+}
+
+._margin-horizontal--10 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+._position--relative {
+  position: relative;
+}
+
+._cursor--pointer {
+  cursor: pointer;
+}
+
+._cursor-initial-i {
+  cursor: initial !important;
+}
+
+button {
+  &.unstyled {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    outline: none;
+  }
+}
+
+.link-blue {
+  cursor: pointer;
+  color: #337ab7;
+  text-decoration: none;
+}
+
+._visibility--hidden {
+  visibility: hidden;
+}

@@ -1,0 +1,16 @@
+@import "variables";
+
+@mixin line-height-initial {
+  line-height: 1.42857143;
+}
+
+@mixin labels-container {
+  .label {
+    display: inline-block;
+
+    margin: 0 2px;
+  }
+
+  margin-left: -2px;
+  margin-right: -2px;
+}

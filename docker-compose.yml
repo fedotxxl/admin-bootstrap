@@ -1,0 +1,25 @@
+dsp_nginx:
+  container_name: dsp-nginx
+  image: fbelov/nginx-dev
+  volumes:
+   - ./static/build:/job
+  ports:
+   - "80:80"
+  extra_hosts:
+   - "dockerhost:$DOCKERHOST"
+
+dsp_db:
+ container_name: dsp-db
+ image: sameersbn/postgresql:9.4
+ ports:
+  - "54392:5432"
+ environment:
+  - DB_USER=onefactor_dsp
+  - DB_PASS=abc
+  - DB_NAME=onefactor_dsp
+
+dsp-prometheus-pg:
+  container_name: dsp-prometheus-pg
+  image: prom/pushgateway
+  ports:
+   - "9091:9091"

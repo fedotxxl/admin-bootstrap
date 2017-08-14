@@ -1,0 +1,129 @@
+buildscript {
+    ext {
+        springBootVersion = "1.5.3.RELEASE"
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "com.netflix.nebula:gradle-ospackage-plugin:2.2.6"
+    }
+}
+
+apply plugin: "rpm"
+apply plugin: "java"
+apply plugin: "groovy"
+apply plugin: "org.springframework.boot"
+
+group = "com.onefactor.dsp"
+version = hasProperty("rpmVersion") ? getProperty("rpmVersion") : "0.1"
+
+project.ext {
+    applicationName = "dsp-server"
+}
+
+jar {
+    baseName = project.ext.applicationName
+    version = "1.0"
+}
+
+springBoot {
+    executable = true
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+ext {
+    groovyVersion = "2.4.4"
+    spockVersion = "1.0-groovy-2.4"
+    springVersion = "4.3.7.RELEASE"
+    jerseyVersion = "2.22.2"
+}
+
+dependencies {
+    compile project(":utils:domain")
+    compile project(":utils:utils-dao-jooq")
+
+    //log
+    compile cl.log.logback
+    compile cl.log.api
+    compile cl.log.sentry
+
+    //utils
+    compile cl.utils.commons.lang
+    compile cl.utils.commons.validator
+    compile cl.utils.guava
+    compile cl.utils.soyuz.bus
+    compile cl.utils.soyuz.concurrent
+    compile cl.utils.soyuz.dbJooq
+    compile cl.utils.soyuz.err
+    compile cl.utils.soyuz.func
+    compile cl.utils.soyuz.io
+    compile cl.utils.soyuz.json
+    compile cl.utils.soyuz.metricsPromtheus
+    compile cl.utils.soyuz.route
+    compile cl.utils.soyuz.springJdbc
+    compile cl.utils.soyuz.tasksQueue
+    compile cl.utils.soyuz.validator
+    compile cl.utils.soyuz.validatorSpring
+    compile cl.utils.soyuz.validatorToErr
+    compile cl.utils.thedocs.loge
+
+    //db
+    compile cl.db.jdbc.postgresql
+    compile cl.db.connection.zaxxer
+    compile cl.db.liquibase
+    compile cl.db.jooq.core
+    compile cl.utils.soyuz.jooq.crud
+
+    //jaxrs client
+    compile cl.jersey.client
+    compile cl.jersey.core
+    compile cl.json.jackson.jsr310
+
+    //other
+    compile cl.cache.ehcache
+
+    compileOnly cl.utils.lombok
+
+    compile("org.springframework.boot:spring-boot-starter-cache")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-web-services")
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "org.spockframework:spock-core:${spockVersion}"
+    testCompile "org.spockframework:spock-spring:${spockVersion}"
+    testCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    testCompile cl.test.random.beans
+}
+
+task rpm(type: Rpm, dependsOn: ["test", "assemble"]) {
+    packageName = project.ext.applicationName
+    version = project.version
+    arch = NOARCH
+    os = LINUX
+
+    into "/"
+
+    from(jar.outputs.files) {
+        into "/opt/dsp/"
+    }
+
+    from('../other/init.d/dsp.init.conf') {
+        into "/opt/dsp"
+        fileType CONFIG | NOREPLACE
+        rename "(?:.*)\\.conf", "${project.ext.applicationName}-1.0.conf"
+    }
+}

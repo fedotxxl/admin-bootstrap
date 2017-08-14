@@ -1,0 +1,31 @@
+.m-mp-filter-type {
+  font-weight: bold;
+
+  &._channel {
+    color: #00b494;
+  }
+
+  &._advertiser {
+    color: #fbad4f;
+  }
+
+  &._region {
+    color: #0d83c9;
+  }
+
+  &._film {
+    color: #07c6c9;
+  }
+
+  &._duration {
+    color: #2aa249;
+  }
+
+  &._mediaplan {
+    color: #ef5363;
+  }
+}
+
+.jqstooltip {
+  font-size: 13px !important;
+}

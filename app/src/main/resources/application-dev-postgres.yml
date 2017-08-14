@@ -1,0 +1,15 @@
+jdbc:
+  connection:
+    driver_class: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:54392/onefactor_dsp
+    username: onefactor_dsp
+    password: abc
+
+jooq:
+#  performance:
+#    printDelayInSeconds: 10
+#    resetOnEachIteration: true
+  dialect: POSTGRES_9_4
+
+liquibase:
+  change-log: classpath:changelog/version-increment.xml

@@ -1,0 +1,25 @@
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+#IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+
+#sass
+.sass-cache/
+static/assets/css/scss/
+
+# "temporary" build files
+target/
+build/
+/out/
+/tmp/
+
+#gradle
+.gradle/
+
+#npm
+node_modules/

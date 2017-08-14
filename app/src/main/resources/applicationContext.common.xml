@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <context:property-placeholder/>
+
+    <import resource="classpath:applicationContext.s.bus.xml"/>
+    <import resource="classpath:applicationContext.s.io.xml"/>
+    <import resource="classpath:applicationContext.s.json.xml"/>
+    <import resource="classpath:applicationContext.s.log.xml"/>
+    <import resource="classpath:applicationContext.s.metrics.prometheus.xml"/>
+    <import resource="classpath:applicationContext.s.db.hikari.xml"/>
+
+    <import resource="applicationContext.app.xml"/>
+    <import resource="applicationContext.auth.xml"/>
+    <import resource="applicationContext.nginx.router.xml"/>
+
+</beans>

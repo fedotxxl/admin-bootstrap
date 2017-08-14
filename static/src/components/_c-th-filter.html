@@ -1,0 +1,24 @@
+<i class="fa fa-filter" ng-click="::$ctrl.modal.open($event)"></i>
+
+<script type="text/ng-template" id="c-th-filter-modal">
+    <div class="modal-body">
+        <div class="form-group">
+            <input type="text" placeholder="Filter" class="form-control" ng-model="$ctrl.filter" autofocus>
+        </div>
+
+        <div class="form-group">
+            <ul>
+                <li class="list-unstyled" ng-repeat="item in $ctrl.itemsDisplayed track by item.idUnique" ng-click="::$ctrl.selection.toggle(item)">
+                    <input type="checkbox" ng-checked="$ctrl.selection.is(item)"> <span ng-bind="::item.label"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white pull-left" ng-click="$ctrl.selection.all()" translate="filter.th.selection.all"></button>
+        <button type="button" class="btn btn-white pull-left" ng-click="$ctrl.selection.reset()" ng-disabled="!$ctrl.selection.has()" translate="filter.th.selection.reset"></button>
+
+        <button type="button" class="btn btn-primary" ng-click="$ctrl.apply()" translate="modal.apply"></button>
+        <button type="button" class="btn btn-white" ng-click="$ctrl.close()" translate="modal.cancel"></button>
+    </div>
+</script>
