@@ -1,0 +1,16 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 ng-bind="::$ctrl.labelActive"></h2>
+        <ol class="breadcrumb">
+            <li ng-repeat="item in $ctrl.before">
+                <a v-href="$ctrl.getBeforeVHrefParams(item)" ng-bind="::$ctrl.getBeforeLabel(item)"></a>
+            </li>
+            <li class="active">
+                <strong ng-bind="::$ctrl.labelActive"></strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>

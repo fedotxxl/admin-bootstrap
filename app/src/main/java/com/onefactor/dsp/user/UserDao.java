@@ -1,7 +1,9 @@
 package com.onefactor.dsp.user;
 
 import com.onefactor.dsp.dao.jooq.tables.records.JuserRecord;
+import com.onefactor.dsp.domain.CommonFilterItem;
 import com.onefactor.dsp.domain.User;
+import com.onefactor.dsp.domain.UserFilterBody;
 import com.onefactor.dsp.domain.UserListRequest;
 import io.belov.soyuz.db.jooq.JooqUtils;
 import io.thedocs.soyuz.db.jooq.crud.CrudDaoI;
@@ -49,6 +51,14 @@ public class UserDao implements CrudDaoI<User, Record, UserListRequest> {
     @Override
     public Collection<Condition> getListConditions(UserListRequest request) {
         Collection<Condition> answer = to.list();
+
+        UserFilterBody filter = request.getFilter();
+
+        if (filter.hasItems()) {
+            if (filter.hasItems(CommonFilterItem.Type.USER)) {
+                answer.add(JUSER.ID.in(filter.getItemIds(CommonFilterItem.Type.USER)));
+            }
+        }
 
         return answer;
     }

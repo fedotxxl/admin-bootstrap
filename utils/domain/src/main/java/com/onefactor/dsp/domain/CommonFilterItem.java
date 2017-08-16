@@ -74,7 +74,7 @@ public class CommonFilterItem {
     @Getter
     @AllArgsConstructor
     public enum Type {
-        NAME("name", true), MAIL("mail", false);
+        NAME("name", true), MAIL("mail", false), USER("user", false);
 
         private String id;
         private boolean isBase64Convertable;

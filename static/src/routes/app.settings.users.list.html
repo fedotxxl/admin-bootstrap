@@ -1,0 +1,82 @@
+<!-- @@master  = /layout/_app.html {"title": "index!", "page": "settings-users"}-->
+
+<!-- @@block  =  js-->
+<script src="/js/pages/app.settings.users.list.js"></script>
+<!-- @@close-->
+
+<!-- @@block  =  css-->
+<link rel="stylesheet" href="/css/scss/pages/app.settings.users.list.css"/>
+<!-- @@close-->
+
+<!-- @@block  =  content-->
+
+<div ng-controller="UsersPage as $ctrl" class="ng-cloak">
+    <c-breadcrumb active="'app.settings.users.list'" before="$ctrl.breadcrumb.before"></c-breadcrumb>
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12 m-b-sm d-flex">
+                                <div class="flex-grow-1 m-r">
+                                    <c-filter-input-simple filter="$ctrl.filter" label="'Filter users by name' | translate"></c-filter-input-simple>
+                                </div>
+
+                                <div data-toggle="buttons" class="pull-right">
+                                    <a class="btn btn-warning" v-href="{route: {path: 'app.settings.users.item.create'}}" c-on-authority="PERM_USER_UPDATE"><i class="fa fa-plus fa-lg"></i><span translate>Add user</span></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover c-smart-table" st-pipe="$ctrl.table.callServer" st-table="$ctrl.data.items">
+                                <thead c-st-init="{total: $ctrl.data.total}" c-st-init-v>
+                                <tr>
+                                    <th></th>
+                                    <th st-sort="name" st-skip-natural="true"><i class="fa fa-sort"></i><span translate>Name</span></th>
+                                    <th st-sort="mail" st-skip-natural="true"><i class="fa fa-sort"></i><span translate>Email</span><c-th-filter filter="::$ctrl.filter" type="::'user'"></c-th-filter></th>
+                                    <th st-sort="created_at" st-skip-natural="true"><i class="fa fa-sort"></i><span translate>Created at</span></th>
+                                    <th st-sort="last_login_at" st-skip-natural="true"><i class="fa fa-sort"></i><span translate>Last login at</span></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
+                                <tbody ng-show="!$ctrl.data.isLoading">
+
+                                <tr ng-repeat="row in $ctrl.data.items">
+                                    <td class="_disabled"><i class="fa fa-ban" ng-show="row.disabled"></i></td>
+                                    <td><a v-href="{route: {path: 'app.settings.users.item.edit', params: {id: row.id}}}" ng-bind="::row | _userName"></a></td>
+                                    <td><a v-href="{route: {path: 'app.settings.users.item.edit', params: {id: row.id}}}" ng-bind="::row.mail"></a></td>
+                                    <td>{{::row.created_at | date: 'dd.MM.yyyy'}}</td>
+                                    <td>{{::row.last_login_at | date: 'dd.MM.yyyy HH:mm'}}</td>
+                                    <td>
+                                        <button class="btn btn-default" ng-show="row.disabled" ng-click="$ctrl.enable(row)"><i class="fa fa-chevron-down"></i> <span translate>Enable</span></button>
+                                        <button class="btn btn-default" ng-show="!row.disabled" ng-click="$ctrl.disable(row)"><i class="fa fa-ban"></i> <span translate>Disable</span></button>
+                                    </td>
+                                </tr>
+
+                                <tbody ng-show="$ctrl.data.isLoading">
+                                <tr>
+                                    <td colspan="6" class="text-center"><span translate>Loading...</span></td>
+                                </tr>
+                                </tbody>
+
+                                <tfoot>
+                                <tr>
+                                    <td class="text-center" st-pagination st-items-by-page="30" colspan="6"></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- @@close-->

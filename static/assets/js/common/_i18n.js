@@ -8,7 +8,7 @@ angular.module("common").
             return "other"
         }
     }).
-    factory("_i18n", function ($translate, _i18nPlatformPostfix) {
+    factory("_i18n", function (gettextCatalog, _i18nPlatformPostfix) {
 
         var get = function(prefix) {
             var obj = function(id, interpolateParams, interpolationId) {
@@ -17,7 +17,7 @@ angular.module("common").
                     id = id[0];
                 }
 
-                return $translate.instant((this.prefix) ? (this.prefix) + id : id, interpolateParams, interpolationId);
+                return gettextCatalog.getString((this.prefix) ? (this.prefix) + id : id, interpolateParams, interpolationId);
             };
 
             //obj.with = function(prefix) {

@@ -3,6 +3,7 @@ var del = require("del");
 var path = require("path");
 var lazypipe = require("lazypipe");
 var $ = require("gulp-load-plugins")({lazy: false});
+var gettext = require('gulp-angular-gettext');
 
 var paths = {
     html: {
@@ -16,6 +17,11 @@ var paths = {
     jsx: {
         src: "./jsx",
         target: "./build/static/js/jsx/"
+    },
+    i18n: {
+        src: "./i18n",
+        tmp: "./build/tmp/i18n",
+        target: "./build/static/js/i18n/"
     },
     target: {
         root: "./build",
@@ -84,6 +90,10 @@ var _ = {
     }
 };
 
+var common = {
+    potSourcePaths: [_.pathAny(paths.html.src, "html"), _.pathAny(paths.assets.src, "js"), "!" + _.pathAny(path.join(paths.assets.src, "js/libs"))]
+};
+
 gulp.task("clean", function () {
     return gulp.series("clean:static", "nginx:clean")();
 });
@@ -146,6 +156,27 @@ gulp.task("assets.without-js-css", function () {
         .src([_.pathAny(paths.assets.src), "!" + _.pathAny(paths.assets.src, "js"), "!" + _.pathAny(paths.assets.src, "css")])
         .pipe(gulp.dest(paths.target.static))
 });
+
+gulp.task("gettext:pot", function () {
+    return gulp
+        .src(common.potSourcePaths)
+        .pipe($.angularGettext.extract('template.pot'))
+        .pipe(gulp.dest(paths.i18n.src));
+});
+
+gulp.task("gettext:js.generate", function () {
+    return gulp
+        .src(_.pathAny(paths.i18n.src, "po"))
+        .pipe($.angularGettext.compile({format: 'javascript'}))
+        .pipe(gulp.dest(paths.i18n.tmp));
+});
+
+gulp.task("gettext:js.copy", function () {
+    return gulp
+        .src(_.pathAny(paths.i18n.tmp, "js"))
+        .pipe(gulp.dest(paths.i18n.target));
+});
+
 
 gulp.task("html:preprocess", function () {
     var context = {
@@ -230,12 +261,12 @@ gulp.task("useref", function () {
         .pipe(gulp.dest(paths.target.static))
 });
 
-gulp.task("build.dev", gulp.series("clean:static", "scss", "jsx", "html", "assets"));
+gulp.task("build.dev", gulp.series("clean:static", "gettext:js.generate", "gettext:js.copy", "scss", "jsx", "html", "assets", "gettext:pot"));
 
 gulp.task("build.prod", function () {
     _.vars.prod = true;
 
-    return gulp.series("clean:static", "scss", "jsx", "html", "useref", "assets.without-js-css", "assets.js:copy-original")();
+    return gulp.series("clean:static", "gettext:js.generate", "gettext:js.copy", "scss", "jsx", "html", "useref", "assets.without-js-css", "assets.js:copy-original")();
 });
 
 (function nginx() {
@@ -278,7 +309,7 @@ gulp.task("build.prod", function () {
     });
 
     gulp.task("watch:assets", function () {
-        $.watch([_.pathAny(paths.assets.src), "!" + path.join(paths.assets.src, "**/*___jb_tmp___"), "!" + _.pathAny(paths.scss.target)], gulp.series("clean:static.assets", "jsx", "assets"))
+        $.watch([_.pathAny(paths.assets.src), "!" + path.join(paths.assets.src, "**/*___jb_tmp___"), "!" + _.pathAny(paths.scss.target)], gulp.series("clean:static.assets", "jsx", "gettext:js.generate", "gettext:js.copy", "assets"))
     });
 
     gulp.task("watch:html", function () {
@@ -293,7 +324,15 @@ gulp.task("build.prod", function () {
         $.watch(_.pathAny(paths.jsx.src, "jsx"), gulp.series("jsx"))
     });
 
-    gulp.task("watch", gulp.series("build.dev", "nginx.dev", gulp.parallel("watch:scss", "watch:assets", "watch:html", "watch:nginx", "watch:jsx")));
+    gulp.task("watch:i18n.po", function () {
+        $.watch(_.pathAny(paths.i18n.src, "po"), gulp.series("gettext:js.generate", "gettext:js.copy"))
+    });
+
+    gulp.task("watch:i18n.pot", function () {
+        $.watch(common.potSourcePaths, gulp.series("gettext:pot"))
+    });
+
+    gulp.task("watch", gulp.series("build.dev", "nginx.dev", gulp.parallel("watch:scss", "watch:assets", "watch:html", "watch:nginx", "watch:jsx", "watch:i18n.po", "watch:i18n.pot")));
 })();
 
 (function utils() {

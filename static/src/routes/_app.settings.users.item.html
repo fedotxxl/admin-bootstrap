@@ -1,0 +1,94 @@
+<div ng-controller="UserPage as u" class="ng-cloak">
+    <c-breadcrumb active="'app.settings.users.item.edit'" before="u.breadcrumb.before"></c-breadcrumb>
+
+    <div class="row" ng-if="u.user">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <form class="form-horizontal" target="{{u.form.getTargetUri()}}" method="post" c-form-remote="u.user" c-form-remote-failure="u.form.onFailure" c-form-remote-success="u.form.onSuccess">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="pull-right">
+                                        <a class="btn btn-warning" v-href="{route: {path: 'app.settings.users.item.create'}}" ng-show="u.user.id" c-on-authority="PERM_USER_UPDATE"><i class="fa fa-plus fa-lg"></i><span translate="user.page.button.add"></span></a>
+                                        <button type="submit" class="btn btn-primary" c-on-authority="PERM_USER_UPDATE"><i class="fa fa-chevron-down fa-lg"></i><span translate>Save</span></button>
+                                        <button type="button" class="btn btn-danger" ng-click="u.delete()" ng-show="u.user.id" c-on-authority="PERM_USER_UPDATE"><i class="fa fa-trash fa-lg"></i><span translate="user.page.button.delete"></span></button>
+                                    </div>
+                                    <div class="m-b-md">
+                                        <h2 translate>User {{::u.user.id}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="u.user.id">
+                                <div class="col-lg-5">
+                                    <dl class="dl-horizontal">
+                                        <dt translate>Created at</dt>
+                                        <dd ng-bind="::u.user.created_at | date: 'dd.MM.yyyy HH:mm'"></dd>
+                                        <!--<dt>Created by:</dt>-->
+                                        <!--<dd>Alex Smith</dd>-->
+                                    </dl>
+                                </div>
+                                <div class="col-lg-7" id="cluster_info">
+                                    <dl class="dl-horizontal" ng-show="u.user.last_login_at">
+                                        <dt translate>Last login at</dt>
+                                        <dd ng-bind="::u.user.last_login_at | date: 'dd.MM.yyyy HH:mm'"></dd>
+                                        <!--<dt>Last Updated:</dt>-->
+                                        <!--<dd ng-bind="t.task.date_updated | date: 'dd.MM.yyyy HH:mm'"></dd>-->
+                                    </dl>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" translate>Disabled</label>
+                                <div class="col-lg-10">
+                                    <input icheck type="checkbox" ng-model="u.user.disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" translate>Email</label>
+                                <div class="col-lg-10">
+                                    <input type="email" placeholder="Email" class="form-control" ng-model="u.user.mail" c-form-remote-component name="mail">
+                                    <c-form-remote-error-simple message="u.form.errors.properties.mail"></c-form-remote-error-simple>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" translate>Password</label>
+                                <div class="col-lg-10">
+                                    <input type="password" placeholder="{{::'Password' | translate}}" class="form-control" ng-model="u.user.password" c-form-remote-component name="password">
+                                    <c-form-remote-error-simple message="u.form.errors.properties.password"></c-form-remote-error-simple>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" translate>First name</label>
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="{{::'First name' | translate}}" class="form-control" ng-model="u.user.first_name" c-form-remote-component name="first_name">
+                                    <c-form-remote-error-simple message="u.form.errors.properties.firstName"></c-form-remote-error-simple>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" translate>Last name</label>
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="{{::'Last name' | translate}}" class="form-control" ng-model="u.user.last_name" c-form-remote-component name="last_name">
+                                    <c-form-remote-error-simple message="u.form.errors.properties.lastName"></c-form-remote-error-simple>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" translate>Admin</label>
+                                <div class="col-lg-10">
+                                    <input icheck type="checkbox" ng-model="u.user.role_admin">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

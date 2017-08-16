@@ -1,5 +1,6 @@
 package com.onefactor.dsp.nginx;
 
+import com.onefactor.dsp.auth.AuthService;
 import io.thedocs.soyuz.log.LoggerEvents;
 import io.thedocs.soyuz.to;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -20,8 +21,8 @@ public class NginxRouterController {
 
     @Autowired
     private NginxRouter router;
-//    @Autowired
-//    private AuthService authService;
+    @Autowired
+    private AuthService authService;
 
     @RequestMapping("/api/nginx/route")
     public void route(HttpServletRequest req, HttpServletResponse resp) {
@@ -43,7 +44,6 @@ public class NginxRouterController {
     }
 
     private boolean isAuthenticated() {
-        return false;
-        // authService.isAuthenticated();
+         return authService.isAuthenticated();
     }
 }

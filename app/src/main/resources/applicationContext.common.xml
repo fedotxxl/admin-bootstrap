@@ -17,6 +17,7 @@
 
     <import resource="applicationContext.app.xml"/>
     <import resource="applicationContext.auth.xml"/>
+    <import resource="applicationContext.fv.xml"/>
     <import resource="applicationContext.nginx.router.xml"/>
 
 </beans>

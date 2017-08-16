@@ -1,0 +1,157 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: routes/auth.login.html:6
+msgid "Ad planning system"
+msgstr ""
+
+#: routes/app.settings.users.list.html:28
+msgid "Add user"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:82
+msgid "Admin"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:26
+#: routes/app.settings.users.list.html:40
+msgid "Created at"
+msgstr ""
+
+#: routes/app.settings.users.list.html:56
+msgid "Disable"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:43
+msgid "Disabled"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:50
+#: routes/app.settings.users.list.html:39
+#: routes/auth.login.html:13
+msgid "Email"
+msgstr ""
+
+#: routes/app.settings.users.list.html:55
+msgid "Enable"
+msgstr ""
+
+#: routes/app.settings.users.list.html:24
+msgid "Filter users by name"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:66
+#: routes/_app.settings.users.item.html:68
+msgid "First name"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:34
+#: routes/app.settings.users.list.html:41
+msgid "Last login at"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:74
+#: routes/_app.settings.users.item.html:76
+msgid "Last name"
+msgstr ""
+
+#: routes/app.settings.users.list.html:62
+msgid "Loading..."
+msgstr ""
+
+#: routes/auth.login.html:22
+msgid "Login"
+msgstr ""
+
+#: routes/app.settings.users.list.html:38
+msgid "Name"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:58
+#: routes/_app.settings.users.item.html:60
+#: routes/auth.login.html:18
+msgid "Password"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:14
+msgid "Save"
+msgstr ""
+
+#: layout/navigation.html:10
+msgid "Settings"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:18
+msgid "User {{::u.user.id}}"
+msgstr ""
+
+#: layout/navigation.html:14
+msgid "Users"
+msgstr ""
+
+#: components/_c-po.html:5
+msgid "auth.error.accountIsBlocked"
+msgstr ""
+
+#: components/_c-po.html:4
+msgid "auth.error.invalidCredentials"
+msgstr ""
+
+#: layout/topnavbar.html:14
+msgid "auth.logout"
+msgstr ""
+
+#: components/_c-po.html:1
+msgid "breadcrumb.app.root"
+msgstr ""
+
+#: components/_c-po.html:3
+msgid "breadcrumb.app.settings.users.item.edit"
+msgstr ""
+
+#: components/_c-po.html:2
+msgid "breadcrumb.app.settings.users.list"
+msgstr ""
+
+#: components/_c-th-filter.html:18
+msgid "filter.th.selection.all"
+msgstr ""
+
+#: components/_c-th-filter.html:19
+msgid "filter.th.selection.reset"
+msgstr ""
+
+#: components/_c-th-filter.html:21
+msgid "modal.apply"
+msgstr ""
+
+#: components/_c-th-filter.html:22
+msgid "modal.cancel"
+msgstr ""
+
+#: components/_c-modal-yes-no.html:7
+msgid "modal.no"
+msgstr ""
+
+#: components/_c-modal-yes-no.html:6
+msgid "modal.yes"
+msgstr ""
+
+#: components/_c-st-pagination.html:6
+msgid "other.pagination.first"
+msgstr ""
+
+#: components/_c-st-pagination.html:24
+msgid "other.pagination.last"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:13
+msgid "user.page.button.add"
+msgstr ""
+
+#: routes/_app.settings.users.item.html:15
+msgid "user.page.button.delete"
+msgstr ""

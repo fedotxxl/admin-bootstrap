@@ -1,6 +1,7 @@
 package com.onefactor.dsp.user;
 
 import com.onefactor.dsp.domain.CommonFilterItem;
+import com.onefactor.dsp.domain.User;
 import com.onefactor.dsp.domain.UserListRequest;
 import com.onefactor.dsp.domain.UserRepresentation;
 import io.thedocs.soyuz.db.jooq.crud.CollectionEntity;
@@ -69,6 +70,8 @@ public class UserResource {
     @PreAuthorize("hasAuthority('PERM_ADMIN')")
     List<CommonFilterItem> getFilterItems() {
         List<CommonFilterItem> answer = to.list();
+
+        answer.addAll(to.list(service.list(), User::toCommonFilterItem));
 
         return answer;
     }

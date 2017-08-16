@@ -21,7 +21,16 @@ public class UserListRequest implements JooqListRequestI {
 
     @Override
     public List<FieldWithOrder> getOrder() {
-        return to.list(order);
+        if (order == null) {
+            return to.list();
+        } else if ("name".equalsIgnoreCase(order.getField())) {
+            return to.list(
+                    new FieldWithOrder("first_name", order.getOrder()),
+                    new FieldWithOrder("last_name", order.getOrder())
+            );
+        } else {
+            return to.list(order);
+        }
     }
 
     @Override

@@ -21,7 +21,7 @@ import static com.onefactor.dsp.domain.User.Permission.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements CrudBeanI {
+public class User implements CrudBeanI, CommonFilterItemCastableI {
 
     private static final Set<Permission> ADMIN_PERMISSIONS = to.set(
             PERM_ADMIN,
@@ -70,6 +70,11 @@ public class User implements CrudBeanI {
     @JsonIgnore
     public Set<String> getPermissionsAsString() {
         return to.set(getPermissions(), Enum::toString);
+    }
+
+    @Override
+    public CommonFilterItem toCommonFilterItem() {
+        return new CommonFilterItem(id, CommonFilterItem.Type.USER, mail);
     }
 
     public enum Permission {

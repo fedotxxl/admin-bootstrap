@@ -1,9 +1,9 @@
 angular.module("app")
-    .factory("_http5xxResponseInterceptor", function ($q, $injector, _log, _i18n) {
+    .factory("_http5xxResponseInterceptor", function ($q, $injector, _log) {
         return {
             responseError: function (rejection) {
                 if (rejection.status >= 500 && rejection.status < 600) {
-                    $injector.get("_notify").danger(_i18n("notification.5xx.server"));
+                    $injector.get("_notify").danger($injector.get("_i18n")("notification.5xx.server"));
                     _log.warn(rejection);
                 }
 
